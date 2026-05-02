@@ -114,7 +114,6 @@ namespace EF_C5_1_
 
                 var employeeService = new EmployeeService(context);
 
-
                 employeeService.AddEmployee(new Employee { Name = "Ivan", Department = "IT", Salary = 20000 });
                 employeeService.AddEmployee(new Employee { Name = "Olena", Department = "HR", Salary = 15000 });
                 employeeService.AddEmployee(new Employee { Name = "Petro", Department = "IT", Salary = 31000 });
