@@ -71,46 +71,76 @@ namespace EF_C5_1_
                 //Додати співробітників до таблиці EmployeeShop
                 //протестувати їх методи через сервіс в методі main
 
+
+                //    employeeService.AddEmployee(new Employee { Name = "Olena", Department = "HR", Salary = 15000 });
+
+                //    Console.WriteLine("CREATE: Employees added\n");
+                //Console.WriteLine("INITIAL EMPLOYEES LIST:");
+                //var employees = employeeService.GetAllEmployees();
+                //foreach (var e in employees)
+                //{
+                //    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
+                //}
+                //var ivan = employeeService.GetById(1);
+                //if (ivan != null)
+                //{
+                //    ivan.Name = "Ivan_Updated";
+                //    ivan.Salary = 30000;
+                //    employeeService.Update(ivan);
+
+                //    Console.WriteLine("\nUPDATE: Ivan updated");
+                //}
+                //Console.WriteLine("\nBEFORE DELETE:");
+                //foreach (var e in employeeService.GetAllEmployees())
+                //{
+                //    Console.WriteLine($"{e.Id} - {e.Name}");
+                //}
+                //Console.WriteLine("\nAFTER UPDATE:");
+                //foreach (var e in employeeService.GetAllEmployees())
+                //{
+                //    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
+                //}
+                //var olena = employeeService.GetAllEmployees().FirstOrDefault(e => e.Name == "Olena");
+                //if (olena != null)
+                //{
+                //    employeeService.Delete(olena.Id);
+                //    Console.WriteLine("\nDELETE: Olena removed");
+                //}
+                //Console.WriteLine("\nFINAL EMPLOYEES LIST:");
+                //foreach (var e in employeeService.GetAllEmployees())
+                //{
+                //    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
+                //}
+
                 var employeeService = new EmployeeService(context);
 
-                    employeeService.AddEmployee(new Employee { Name = "Olena", Department = "HR", Salary = 15000 });
 
-                    Console.WriteLine("CREATE: Employees added\n");
-                Console.WriteLine("INITIAL EMPLOYEES LIST:");
-                var employees = employeeService.GetAllEmployees();
-                foreach (var e in employees)
+                employeeService.AddEmployee(new Employee { Name = "Ivan", Department = "IT", Salary = 20000 });
+                employeeService.AddEmployee(new Employee { Name = "Olena", Department = "HR", Salary = 15000 });
+                employeeService.AddEmployee(new Employee { Name = "Petro", Department = "IT", Salary = 31000 });
+                employeeService.AddEmployee(new Employee { Name = "Anna", Department = "Finance", Salary = 18000 });
+                employeeService.AddEmployee(new Employee { Name = "John", Department = "IT", Salary = 27000 });
+                Console.WriteLine("\nIT EMPLOYEES:");
+                var itEmployees = employeeService.GetByDepartment("IT");
+                foreach (var e in itEmployees)
                 {
-                    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
+                    Console.WriteLine($"{e.Name} - {e.Salary}");
                 }
-                var ivan = employeeService.GetById(1);
-                if (ivan != null)
+                var top = employeeService.GetHighestSalaryEmployee();
+                Console.WriteLine($"\nHIGHEST SALARY: {top?.Name} - {top?.Salary}");
+                var avg = employeeService.GetAverageSalary();
+                Console.WriteLine($"\nAVERAGE SALARY: {avg}");
+                Console.WriteLine("\nSEARCH 'an':");
+                var search = employeeService.SearchByName("an");
+                foreach (var e in search)
                 {
-                    ivan.Name = "Ivan_Updated";
-                    ivan.Salary = 30000;
-                    employeeService.Update(ivan);
-
-                    Console.WriteLine("\nUPDATE: Ivan updated");
+                    Console.WriteLine(e.Name);
                 }
-                Console.WriteLine("\nBEFORE DELETE:");
-                foreach (var e in employeeService.GetAllEmployees())
+                Console.WriteLine("\nSORTED BY SALARY:");
+                var sorted = employeeService.GetEmployeesSortedBySalary();
+                foreach (var e in sorted)
                 {
-                    Console.WriteLine($"{e.Id} - {e.Name}");
-                }
-                Console.WriteLine("\nAFTER UPDATE:");
-                foreach (var e in employeeService.GetAllEmployees())
-                {
-                    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
-                }
-                var olena = employeeService.GetAllEmployees().FirstOrDefault(e => e.Name == "Olena");
-                if (olena != null)
-                {
-                    employeeService.Delete(olena.Id);
-                    Console.WriteLine("\nDELETE: Olena removed");
-                }
-                Console.WriteLine("\nFINAL EMPLOYEES LIST:");
-                foreach (var e in employeeService.GetAllEmployees())
-                {
-                    Console.WriteLine($"{e.Id} - {e.Name} - {e.Department} - {e.Salary}");
+                    Console.WriteLine($"{e.Name} - {e.Salary}");
                 }
 
                 Console.ReadKey();

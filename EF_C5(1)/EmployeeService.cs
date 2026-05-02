@@ -49,5 +49,35 @@ namespace EF_C5_1_
                 _context.SaveChanges();
             }
         }
+        public List<Employee> GetByDepartment(string department)
+        {
+            return _context.Employees
+                .Where(e => e.Department == department)
+                .ToList();
+        }
+        public Employee GetHighestSalaryEmployee()
+        {
+            return _context.Employees
+                .OrderByDescending(e => e.Salary)
+                .FirstOrDefault();
+        }
+        public decimal GetAverageSalary()
+        {
+            return _context.Employees.Any()
+                ? _context.Employees.Average(e => e.Salary)
+                : 0;
+        }
+        public List<Employee> SearchByName(string name)
+        {
+            return _context.Employees
+                .Where(e => e.Name.Contains(name))
+                .ToList();
+        }
+        public List<Employee> GetEmployeesSortedBySalary()
+        {
+            return _context.Employees
+                .OrderByDescending(e => e.Salary)
+                .ToList();
+        }
     }
 }
